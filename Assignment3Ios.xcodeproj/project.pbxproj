@@ -13,6 +13,8 @@
 		CEBE7D1A23716EB4004D3DF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEBE7D1823716EB4004D3DF3 /* Main.storyboard */; };
 		CEBE7D1C23716EB5004D3DF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEBE7D1B23716EB5004D3DF3 /* Assets.xcassets */; };
 		CEBE7D1F23716EB5004D3DF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEBE7D1D23716EB5004D3DF3 /* LaunchScreen.storyboard */; };
+		CEBE7D2723717BE1004D3DF3 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE7D2623717BE1004D3DF3 /* ImagePicker.swift */; };
+		CEBE7D2923718FB0004D3DF3 /* DescribeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE7D2823718FB0004D3DF3 /* DescribeImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		CEBE7D1B23716EB5004D3DF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEBE7D1E23716EB5004D3DF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEBE7D2023716EB5004D3DF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEBE7D2623717BE1004D3DF3 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		CEBE7D2823718FB0004D3DF3 /* DescribeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescribeImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				CEBE7D1B23716EB5004D3DF3 /* Assets.xcassets */,
 				CEBE7D1D23716EB5004D3DF3 /* LaunchScreen.storyboard */,
 				CEBE7D2023716EB5004D3DF3 /* Info.plist */,
+				CEBE7D2623717BE1004D3DF3 /* ImagePicker.swift */,
+				CEBE7D2823718FB0004D3DF3 /* DescribeImage.swift */,
 			);
 			path = Assignment3Ios;
 			sourceTree = "<group>";
@@ -139,6 +145,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEBE7D1723716EB4004D3DF3 /* ViewController.swift in Sources */,
+				CEBE7D2723717BE1004D3DF3 /* ImagePicker.swift in Sources */,
+				CEBE7D2923718FB0004D3DF3 /* DescribeImage.swift in Sources */,
 				CEBE7D1323716EB4004D3DF3 /* AppDelegate.swift in Sources */,
 				CEBE7D1523716EB4004D3DF3 /* SceneDelegate.swift in Sources */,
 			);

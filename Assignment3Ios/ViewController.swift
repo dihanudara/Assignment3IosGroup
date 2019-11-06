@@ -5,8 +5,9 @@
 //  Created by HEWA DEWAGE DIHAN UDARA SANDARUWAN on 5/11/2562 BE.
 //  Copyright © 2562 HEWA DEWAGE DIHAN UDARA SANDARUWAN. All rights reserved.
 //
-
+import Foundation
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
 
@@ -62,14 +63,26 @@ class ViewController: UIViewController {
                
                 task.resume()
             }
+    
+    
+    
 
     @IBAction func chooseImage(_ sender: UIButton) {
         imagePicker?.present()
     }
     
     @IBAction func speakEnglish(_ sender: UIButton) {
+        self.readMe(myText:labelEngligh.text!)
     }
     
+    func readMe(myText:String){
+        let speaker = AVSpeechUtterance(string: myText)
+       
+        speaker.rate = 0.5
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(speaker)
+        
+    }
     
     @IBAction func speakOther(_ sender: UIButton) {
     }

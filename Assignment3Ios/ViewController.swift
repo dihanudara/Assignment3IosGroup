@@ -65,7 +65,42 @@ class ViewController: UIViewController {
                 task.resume()
             }
     
-    
+    private func translateText(text: String){
+            let azureKey = translationServiceAPIKey
+            
+            let contentType = "application/json"
+            let traceID = "A14C9DB9-0DED-48D7-8BBE-C517A1A8DBB0"
+            let host = "dev.microsofttranslator.com"
+            let apiURL = "https://dev.microsofttranslator.com/translate?api-version=3.0&from=en&to=es&text=" + self.labelEngligh.text!
+            
+            let url = URL(string: apiURL)
+            var request = URLRequest(url: url!)
+
+            request.httpMethod = "POST"
+            request.addValue(azureKey, forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
+            request.addValue(contentType, forHTTPHeaderField: "Content-Type")
+            request.addValue(traceID, forHTTPHeaderField: "X-ClientTraceID")
+            request.addValue(host, forHTTPHeaderField: "Host")
+            
+            let config = URLSessionConfiguration.default
+            let session =  URLSession(configuration: config)
+            
+            let task = session.dataTask(with: request) { (responseData, response, responseError) in
+                
+                if responseError != nil {
+                    print("this is the error ", responseError!)
+                    
+                    let alert = UIAlertController(title: "Could not connect to service", message: "Please check your network connection and try again", preferredStyle: .actionSheet)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    
+                    self.present(alert, animated: true)
+                    
+                }
+                print("*****")
+            }
+            task.resume()
+    }
     
 
     @IBAction func chooseImage(_ sender: UIButton) {

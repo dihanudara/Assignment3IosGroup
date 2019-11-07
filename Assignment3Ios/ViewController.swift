@@ -122,7 +122,7 @@ class ViewController: UIViewController {
                         self.present(alert, animated: true)
                         
                     }
-                    print("*****")
+                    print("Translation was successful")
                     self.parseJson(jsonData: responseData!)
                 }
                 task.resume()
@@ -171,6 +171,7 @@ class ViewController: UIViewController {
     
     @IBAction func speakOther(_ sender: UIButton) {
         self.readMe(myText:labelOther.text!)
+        print("speaking translated text out loud")
     }
     
 }

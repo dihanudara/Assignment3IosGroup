@@ -18,6 +18,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var labelOther: UILabel!
     
     var imagePicker: ImagePicker?
+    
+    let jsonEncoder = JSONEncoder()
+    
     let cognitiveServiceAPIKey = "24c5e23bb1784a7793c0d6c66d4e6f22"
     
     let translationServiceAPIKey = "840941453ecb404ba3de684b04c2d7a7"
@@ -49,6 +52,7 @@ class ViewController: UIViewController {
                         DispatchQueue.main.async {
                             if captions.count > 0 {
                                 self.labelEngligh.text = captions[0].text
+                                self.translateText(text: (self.labelEngligh.text)!)
                             } else {
                                 self.labelEngligh.text = "No captions available"
                             }
@@ -67,40 +71,85 @@ class ViewController: UIViewController {
     
     private func translateText(text: String){
             let azureKey = translationServiceAPIKey
-            
-            let contentType = "application/json"
-            let traceID = "A14C9DB9-0DED-48D7-8BBE-C517A1A8DBB0"
-            let host = "dev.microsofttranslator.com"
-            let apiURL = "https://dev.microsofttranslator.com/translate?api-version=3.0&from=en&to=es&text=" + self.labelEngligh.text!
-            
-            let url = URL(string: apiURL)
-            var request = URLRequest(url: url!)
 
-            request.httpMethod = "POST"
-            request.addValue(azureKey, forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
-            request.addValue(contentType, forHTTPHeaderField: "Content-Type")
-            request.addValue(traceID, forHTTPHeaderField: "X-ClientTraceID")
-            request.addValue(host, forHTTPHeaderField: "Host")
-            
-            let config = URLSessionConfiguration.default
-            let session =  URLSession(configuration: config)
-            
-            let task = session.dataTask(with: request) { (responseData, response, responseError) in
                 
-                if responseError != nil {
-                    print("this is the error ", responseError!)
-                    
-                    let alert = UIAlertController(title: "Could not connect to service", message: "Please check your network connection and try again", preferredStyle: .actionSheet)
-                    
-                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    
-                    self.present(alert, animated: true)
-                    
+                
+                let selectedFromLangCode = "en"
+                let selectedToLangCode = "es"
+                
+                print("this is the selected language code ->", selectedToLangCode)
+        
+                struct encodeText: Codable {
+                    var text = String()
                 }
-                print("*****")
+                
+                let contentType = "application/json"
+                let traceID = "A14C9DB9-0DED-48D7-8BBE-C517A1A8DBB0"
+                let host = "dev.microsofttranslator.com"
+                let apiURL = "https://dev.microsofttranslator.com/translate?api-version=3.0&from=" + selectedFromLangCode + "&to=" + selectedToLangCode
+                
+        let text2Translate = self.labelEngligh.text
+                var encodeTextSingle = encodeText()
+                var toTranslate = [encodeText]()
+                
+                encodeTextSingle.text = text2Translate!
+                toTranslate.append(encodeTextSingle)
+                
+                let jsonToTranslate = try? jsonEncoder.encode(toTranslate)
+                let url = URL(string: apiURL)
+                var request = URLRequest(url: url!)
+
+                request.httpMethod = "POST"
+                request.addValue(azureKey, forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
+                request.addValue(contentType, forHTTPHeaderField: "Content-Type")
+                request.addValue(traceID, forHTTPHeaderField: "X-ClientTraceID")
+                request.addValue(host, forHTTPHeaderField: "Host")
+                request.addValue(String(describing: jsonToTranslate?.count), forHTTPHeaderField: "Content-Length")
+                request.httpBody = jsonToTranslate
+                
+                let config = URLSessionConfiguration.default
+                let session =  URLSession(configuration: config)
+                
+                let task = session.dataTask(with: request) { (responseData, response, responseError) in
+                    
+                    if responseError != nil {
+                        print("this is the error ", responseError!)
+                        
+                        let alert = UIAlertController(title: "Could not connect to service", message: "Please check your network connection and try again", preferredStyle: .actionSheet)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                        
+                        self.present(alert, animated: true)
+                        
+                    }
+                    print("*****")
+                    self.parseJson(jsonData: responseData!)
+                }
+                task.resume()
             }
-            task.resume()
-    }
+            
+            
+            func parseJson(jsonData: Data) {
+                
+                //*****TRANSLATION RETURNED DATA*****
+                struct ReturnedJson: Codable {
+                    var translations: [TranslatedStrings]
+                }
+                struct TranslatedStrings: Codable {
+                    var text: String
+                    var to: String
+                }
+                
+                let jsonDecoder = JSONDecoder()
+                let langTranslations = try? jsonDecoder.decode(Array<ReturnedJson>.self, from: jsonData)
+                let numberOfTranslations = langTranslations!.count - 1
+                print(langTranslations!.count)
+                
+                //Put response on main thread to update UI
+                DispatchQueue.main.async {
+                    self.labelOther.text = langTranslations![0].translations[numberOfTranslations].text
+                }
+            }
     
 
     @IBAction func chooseImage(_ sender: UIButton) {
@@ -121,6 +170,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func speakOther(_ sender: UIButton) {
+        self.readMe(myText:labelOther.text!)
     }
     
 }

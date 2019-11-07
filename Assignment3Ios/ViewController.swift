@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     var imagePicker: ImagePicker?
     let cognitiveServiceAPIKey = "24c5e23bb1784a7793c0d6c66d4e6f22"
     
+    let translationServiceAPIKey = "840941453ecb404ba3de684b04c2d7a7"
     
     override func viewDidLoad() {
         super.viewDidLoad()

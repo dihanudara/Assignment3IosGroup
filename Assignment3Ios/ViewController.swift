@@ -67,7 +67,7 @@ class ViewController: UIViewController {
                 }
             }
         }
-        s
+        
         task.resume()
     }
     

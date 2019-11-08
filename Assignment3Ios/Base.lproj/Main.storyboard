@@ -186,7 +186,7 @@
                                 </prototypes>
                                 <sections/>
                                 <connections>
-                                    <outlet property="delegate" destination="qnf-fq-fNj" id="ixz-B4-zUW"/>
+                                    <outlet property="delegate" destination="qnf-fq-fNj" id="2DG-a7-sxY"/>
                                 </connections>
                             </tableView>
                         </subviews>

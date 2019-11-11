@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     
     var imagePicker: ImagePicker?
     
+    var translationsList = [[String]]()
+    
     let jsonEncoder = JSONEncoder()
     
     let cognitiveServiceAPIKey = "24c5e23bb1784a7793c0d6c66d4e6f22"
@@ -161,6 +163,7 @@ class ViewController: UIViewController {
         //Put response on main thread to update UI
         DispatchQueue.main.async {
             self.labelOther.text = langTranslations![0].translations[numberOfTranslations].text
+            self.saveArray(x: (self.labelEngligh.text)!, y: (self.labelOther.text)!)
         }
     }
     
@@ -171,6 +174,14 @@ class ViewController: UIViewController {
     
     @IBAction func speakEnglish(_ sender: UIButton) {
         self.readMe(myText:labelEngligh.text!)
+    }
+    
+    func saveArray(x: String, y: String){
+        var thing = [String]()
+        thing.append(x)
+        thing.append(y)
+        translationsList.append(thing)
+        print(thing)
     }
     
     func readMe(myText:String){

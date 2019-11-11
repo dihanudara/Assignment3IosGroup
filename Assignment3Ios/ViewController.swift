@@ -139,6 +139,9 @@ class ViewController: UIViewController {
             }
             print("Translation was successful")
             self.parseJson(jsonData: responseData!)
+            
+            // save array
+            self.saveArray(x: (self.labelEngligh.text)!, y: (self.labelOther.text)!)
         }
         task.resume()
     }
@@ -163,7 +166,6 @@ class ViewController: UIViewController {
         //Put response on main thread to update UI
         DispatchQueue.main.async {
             self.labelOther.text = langTranslations![0].translations[numberOfTranslations].text
-            self.saveArray(x: (self.labelEngligh.text)!, y: (self.labelOther.text)!)
         }
     }
     
